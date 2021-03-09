@@ -1,0 +1,7 @@
+{"level":"INFO","time":"2021-03-09T16:27:35.826+0800","caller":"logger/logger.go:68","msg":"/","status":200,"method":"GET","path":"/","query":"","ip":"127.0.0.1","user-agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.192 Safari/537.36","errors":"","cost":0.000134122}
+{"level":"INFO","time":"2021-03-09T16:32:13.568+0800","caller":"gin_demo/main.go:75","msg":"Shutdown Server ..."}
+{"level":"INFO","time":"2021-03-09T16:32:14.069+0800","caller":"gin_demo/main.go:84","msg":"Server exiting"}
+{"level":"INFO","time":"2021-03-09T16:36:15.729+0800","caller":"gin_demo/main.go:87","msg":"Shutdown Server ..."}
+{"level":"INFO","time":"2021-03-09T16:36:16.235+0800","caller":"gin_demo/main.go:96","msg":"Server exiting"}
+{"level":"INFO","time":"2021-03-09T17:30:43.097+0800","caller":"logger/logger.go:68","msg":"/","status":200,"method":"GET","path":"/","query":"","ip":"127.0.0.1","user-agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.192 Safari/537.36","errors":"","cost":0.000118414}
+{"level":"INFO","time":"2021-03-09T17:48:01.909+0800","caller":"gin_demo/main.go:75","msg":"Shutdown Server ..."}
