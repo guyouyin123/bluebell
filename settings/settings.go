@@ -1,3 +1,5 @@
+// yaml配置文件方式
+
 package settings
 
 import (
@@ -7,10 +9,12 @@ import (
 )
 
 func Init() (err error) {
-	viper.SetConfigFile("config.yaml") // 指定配置文件
-	viper.AddConfigPath(".")           // 指定查找配置文件的路径
-	err = viper.ReadInConfig()         // 读取配置信息
-	if err != nil {                    // 读取配置信息失败
+	viper.SetConfigFile("config.yaml") // 指定配置文件，如果是json就写json
+	//viper.SetConfigName("config")  //远程指定配置文件名称
+	//viper.SetConfigType("yaml")   // 远程指定配置类型
+	viper.AddConfigPath(".")   // 指定查找配置文件的路径
+	err = viper.ReadInConfig() // 读取配置信息
+	if err != nil {            // 读取配置信息失败
 		fmt.Println("读取配置信息失败:", err)
 		return err
 	}

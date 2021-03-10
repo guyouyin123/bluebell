@@ -2,6 +2,7 @@ app:
   name: "web_app"
   mode: "dev"
   port: 8080
+  version: "v1"
 
 # 日志
 log:

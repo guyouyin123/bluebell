@@ -1,6 +1,7 @@
 package logger
 
 import (
+	"gin_demo/settings"
 	"github.com/gin-gonic/gin"
 	"github.com/natefinch/lumberjack"
 	"github.com/spf13/viper"
@@ -15,7 +16,7 @@ import (
 	"time"
 )
 
-// InitLogger 初始化Logger
+// InitLogger 初始化Logger方式1
 func Init() (err error) {
 	writeSyncer := getLogWriter(
 		viper.GetString("log.filename"),
@@ -26,6 +27,27 @@ func Init() (err error) {
 	encoder := getEncoder()
 	var l = new(zapcore.Level)
 	err = l.UnmarshalText([]byte(viper.GetString("level")))
+	if err != nil {
+		return
+	}
+	core := zapcore.NewCore(encoder, writeSyncer, l)
+
+	lg := zap.New(core, zap.AddCaller())
+	zap.ReplaceGlobals(lg) // 替换zap包中全局的logger实例，后续在其他包中只需使用zap.L()调用即可
+	return
+}
+
+// InitLogger 初始化Logger方式2
+func Init2(cfg *settings.LogConfig) (err error) {
+	writeSyncer := getLogWriter(
+		cfg.Filename,
+		cfg.Max_size,
+		cfg.Max_backups,
+		cfg.Max_age,
+	)
+	encoder := getEncoder()
+	var l = new(zapcore.Level)
+	err = l.UnmarshalText([]byte(cfg.Level))
 	if err != nil {
 		return
 	}
