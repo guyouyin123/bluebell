@@ -1,7 +1,7 @@
 package logger
 
 import (
-	"gin_demo/settings"
+	"bluebell/settings"
 	"github.com/gin-gonic/gin"
 	"github.com/natefinch/lumberjack"
 	"github.com/spf13/viper"
@@ -17,7 +17,7 @@ import (
 )
 
 // InitLogger 初始化Logger方式1
-func Init() (err error) {
+func Init(mode string) (err error) {
 	writeSyncer := getLogWriter(
 		viper.GetString("log.filename"),
 		viper.GetInt("log.max_size"),
@@ -30,14 +30,26 @@ func Init() (err error) {
 	if err != nil {
 		return
 	}
-	core := zapcore.NewCore(encoder, writeSyncer, l)
+
+	var core zapcore.Core
+	if mode == "dev" {
+		//开发模式，日志输出到终端
+		consoleEncoder := zapcore.NewConsoleEncoder(zap.NewDevelopmentEncoderConfig())
+		core = zapcore.NewTee(
+			zapcore.NewCore(encoder, writeSyncer, l),                                     //输出到日志文件
+			zapcore.NewCore(consoleEncoder, zapcore.Lock(os.Stdout), zapcore.DebugLevel), //DebugLevel级别，往终端输出
+		)
+	} else {
+		//正式模式，日志输出到文件
+		core = zapcore.NewCore(encoder, writeSyncer, l)
+	}
 
 	lg := zap.New(core, zap.AddCaller())
 	zap.ReplaceGlobals(lg) // 替换zap包中全局的logger实例，后续在其他包中只需使用zap.L()调用即可
 	return
 }
 
-// InitLogger 初始化Logger方式2
+// InitLogger 初始化Logger方式2:配置信息在结构体中
 func Init2(cfg *settings.LogConfig) (err error) {
 	writeSyncer := getLogWriter(
 		cfg.Filename,

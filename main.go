@@ -1,13 +1,14 @@
 package main
 
 import (
+	"bluebell/controllers"
+	"bluebell/dao/mysql"
+	"bluebell/dao/redis"
+	"bluebell/logger"
+	"bluebell/routers"
+	"bluebell/settings"
 	"context"
 	"fmt"
-	"gin_demo/dao/mysql"
-	"gin_demo/dao/redis"
-	"gin_demo/logger"
-	"gin_demo/routes"
-	"gin_demo/settings"
 	"github.com/spf13/viper"
 	"go.uber.org/zap"
 	"log"
@@ -27,7 +28,7 @@ func main() {
 
 	//2.初始化日志
 	// 方式一：viper配置文件方式
-	if err := logger.Init(); err != nil {
+	if err := logger.Init(viper.GetString("mode")); err != nil {
 		fmt.Println("日志文件初始化失败：", err)
 		return
 	}
@@ -52,10 +53,14 @@ func main() {
 	}
 	defer redis.Close()
 
+	// 翻译器初始化
+	if err := controllers.InitTrans("zh"); err != nil {
+		fmt.Println(err)
+		zap.L().Error("controllers.InitTrans with err:", zap.Error(err))
+	}
+
 	//5.注册路由
-	r := routes.Setup()
-	fmt.Println(r)
-	routes.Send_test()
+	r := routers.Setup(viper.GetString("mode"))
 	//6.启动服务
 
 	srv := &http.Server{

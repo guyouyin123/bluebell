@@ -1,3 +1,7 @@
+
+mode: "dev"  # dev开发模式
+#mode: "release"  # release发布模式
+
 app:
   name: "web_app"
   mode: "dev"
@@ -17,7 +21,7 @@ mysql:
   port: 3306
   user: "root"
   password: "admin123"
-  dbname: "dududu"
+  dbname: "bluebell"
   max_open_conns: 20
   max_idle_conns: 10
 

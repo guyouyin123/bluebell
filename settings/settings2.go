@@ -15,6 +15,8 @@ type AppConfig struct {
 	Mode       string `mapstructrue:"mode"`
 	Version    string `mapstructrue:"version"`
 	Port       string `mapstructrue:"port"`
+	StartTime  string `mapstructrue:"start_time"`
+	MachineId  string `mapstructrue:"machine_id"`
 	*LogConfig `mapstructrue:"log"`
 	*Mysql     `mapstructrue:"log"`
 	*Redis     `mapstructrue:"log"`
@@ -64,7 +66,7 @@ func Init2() (err error) {
 	// 监控配置文件变化
 	viper.WatchConfig()
 	viper.OnConfigChange(func(in fsnotify.Event) {
-		fmt.Println("配置问价修改了")
+		fmt.Println("配置文价修改了")
 	})
 	return err
 }
