@@ -4,7 +4,8 @@ import (
 	"bluebell/controllers"
 	"bluebell/dao/mysql"
 	"bluebell/logger"
-	"bluebell/pkg"
+	"bluebell/pkg/jwt"
+	"bluebell/pkg/sonwflake"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -18,14 +19,13 @@ func Setup(mode string) *gin.Engine {
 	r := gin.New()
 	r.Use(logger.GinLogger(), logger.GinRecovery(true)) //添加记录日志的中间件
 
-	r.GET("/", func(c *gin.Context) {
-		c.String(http.StatusOK, "okok")
-	})
-	r.GET("/hello", func(c *gin.Context) {
+	//测试接口：需要登陆用户才能访问的接口,验证jwt.token
+	r.GET("/get_id", jwt.JWTAuthMiddleware(), func(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"user_id": Test_id(),
 		})
 	})
+	// 其他请求
 	r.NoRoute(func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
 			"msg": "404",
@@ -39,7 +39,7 @@ func Setup(mode string) *gin.Engine {
 }
 
 func Test_id() int64 {
-	id := pkg.GenID()
+	id := sonwflake.GenID()
 	return id
 }
 

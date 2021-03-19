@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"bluebell/api"
+	"bluebell/common"
 	"bluebell/models"
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
@@ -22,14 +23,14 @@ func UserRegister(c *gin.Context) {
 			//	"code": 403,
 			//	"msg":  err.Error(),
 			//})
-			ResponseWithMsg(c, CodeInvalidParam, err.Error())
+			common.ResponseWithMsg(c, common.CodeInvalidParam, err.Error())
 			return
 		}
 		//c.JSON(http.StatusOK, gin.H{
 		//	"msg":  "出错",
 		//	"data": removeTopStruct(errs.Translate(trans)), //翻译
 		//})
-		ResponseWithMsg(c, CodeInvalidParam, removeTopStruct(errs.Translate(trans)))
+		common.ResponseWithMsg(c, common.CodeInvalidParam, removeTopStruct(errs.Translate(trans)))
 		return
 	}
 
@@ -39,7 +40,7 @@ func UserRegister(c *gin.Context) {
 		//c.JSON(http.StatusOK, gin.H{
 		//	"msg": "用户已存在！！！",
 		//})
-		ResponseError(c, CodeUserExist)
+		common.ResponseError(c, common.CodeUserExist)
 		return
 	}
 
@@ -49,7 +50,7 @@ func UserRegister(c *gin.Context) {
 	//	"data": p,
 	//})
 
-	ResponseSuccess(c, "注册成功！！！")
+	common.ResponseSuccess(c, p)
 
 }
 
@@ -66,14 +67,14 @@ func UserLogin(c *gin.Context) {
 			//	"code": http.StatusOK,
 			//	"msg":  err.Error(),
 			//})
-			ResponseError(c, CodeInvalidParam)
+			common.ResponseError(c, common.CodeInvalidParam)
 			return
 		}
 		//c.JSON(http.StatusOK, gin.H{
 		//	"code": 403,
 		//	"msg":  removeTopStruct(errs.Translate(trans)), //翻译validator中的错误
 		//})
-		ResponseWithMsg(c, CodeInvalidParam, removeTopStruct(errs.Translate(trans)))
+		common.ResponseWithMsg(c, common.CodeInvalidParam, removeTopStruct(errs.Translate(trans)))
 		return
 	}
 	//2.用户登陆接口
@@ -87,7 +88,7 @@ func UserLogin(c *gin.Context) {
 		//	"msg":  "error",
 		//	"data": fmt.Sprintf("%s用户名或密码错误！！！", p.Username),
 		//})
-		ResponseError(c, CodeInvalidPassword)
+		common.ResponseError(c, common.CodeInvalidPassword)
 		return
 	}
 
@@ -99,6 +100,6 @@ func UserLogin(c *gin.Context) {
 	//	"data": "登陆成功！！！",
 	//})
 
-	ResponseSuccess(c, "登陆成功！！！")
+	common.ResponseSuccess(c, p.Token)
 
 }
