@@ -27,9 +27,9 @@ func ExistUser(username string) (bool, error) {
 
 //判断用户是否存在,和密码是否正确
 func ExistLoginUser(p *models.LoginUser) (bool, error) {
-	sqlStr := `select count(user_id) from user where username = ? and password = ?`
+	sqlStr := `select count(user_id) from user where user_id = ? and password = ?`
 	var count int
-	if err := Db.Get(&count, sqlStr, p.Username, p.Password); err != nil {
+	if err := Db.Get(&count, sqlStr, p.UserID, p.Password); err != nil {
 		//false,用户已存在
 		return false, err
 	}

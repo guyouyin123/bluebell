@@ -1,6 +1,7 @@
 package routers
 
 import (
+	"bluebell/common"
 	"bluebell/controllers"
 	"bluebell/dao/mysql"
 	"bluebell/logger"
@@ -22,7 +23,8 @@ func Setup(mode string) *gin.Engine {
 	//测试接口：需要登陆用户才能访问的接口,验证jwt.token
 	r.GET("/get_id", jwt.JWTAuthMiddleware(), func(c *gin.Context) {
 		c.JSON(200, gin.H{
-			"user_id": Test_id(),
+			"userid":   Test_id(),
+			"username": common.GetTokenUserid(c),
 		})
 	})
 	// 其他请求

@@ -16,7 +16,7 @@ type ParamsUser struct {
 }
 
 type LoginUser struct {
-	Username string `json:"username" binding:"required"`
+	UserID   int64  `json:"userid" binding:"required"`
 	Password string `json:"password" binding:"required"`
 	Token    string
 }

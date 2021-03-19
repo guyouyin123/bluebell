@@ -59,7 +59,7 @@ func ResponseWithMsg(c *gin.Context, code ResCode, msg interface{}) {
 	c.JSON(http.StatusOK, rd)
 }
 
-//返回正常
+//返回错误
 func ResponseError(c *gin.Context, code ResCode) {
 	rd := &ResponseData{
 		Code: code,

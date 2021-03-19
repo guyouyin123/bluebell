@@ -49,7 +49,7 @@ func Login(p *models.LoginUser) (bool bool, err error) {
 	}
 	//2.验证通过，返回true,没有错误信息
 
-	token, err2 := jwt.GenToken(p.Username)
+	token, err2 := jwt.GenToken(p.UserID)
 	if err2 != nil {
 		return false, err
 	}
