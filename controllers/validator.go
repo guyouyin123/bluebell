@@ -14,6 +14,7 @@ import (
 	"strings"
 )
 
+//翻译器
 // 定义一个全局翻译器T
 var trans ut.Translator
 

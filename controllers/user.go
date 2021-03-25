@@ -9,6 +9,7 @@ import (
 	"go.uber.org/zap"
 )
 
+//用户注册登陆逻辑
 //用户注册方法
 func UserRegister(c *gin.Context) {
 	p := models.ParamsUser{}

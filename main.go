@@ -38,7 +38,6 @@ func main() {
 	//	return
 	//}
 	defer zap.L().Sync() //缓存日志追加到日志文件中
-	zap.L().Debug("lalalalal")
 	//3.初始化mysql连接
 	if err := mysql.Init(); err != nil {
 		fmt.Println("mysql文件初始化失败：", err)

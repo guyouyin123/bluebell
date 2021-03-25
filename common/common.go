@@ -1,4 +1,3 @@
-//公共功能
 package common
 
 import (
@@ -8,6 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+//公共功能
 //加密字符串
 func MD5(str string) string {
 	h := md5.New()

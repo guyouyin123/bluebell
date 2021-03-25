@@ -19,24 +19,31 @@ func Setup(mode string) *gin.Engine {
 
 	r := gin.New()
 	r.Use(logger.GinLogger(), logger.GinRecovery(true)) //添加记录日志的中间件
+	v1 := r.Group("/api/v1")
 
 	//测试接口：需要登陆用户才能访问的接口,验证jwt.token
-	r.GET("/get_id", jwt.JWTAuthMiddleware(), func(c *gin.Context) {
+	//http://127.0.0.1:8080/api/v1/get_id/?userid=94372175745650688 header中还要携带token
+	v1.GET("/get_id", jwt.JWTAuthMiddleware(), func(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"userid":   Test_id(),
 			"username": common.GetTokenUserid(c),
 		})
 	})
+
+	v1.POST("/register", controllers.UserRegister)
+
+	v1.POST("/login", controllers.UserLogin)
+
+	{
+		v1.GET("/community", controllers.Community)
+	}
+
 	// 其他请求
 	r.NoRoute(func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
 			"msg": "404",
 		})
 	})
-
-	r.POST("/register", controllers.UserRegister)
-
-	r.POST("/login", controllers.UserLogin)
 	return r
 }
 

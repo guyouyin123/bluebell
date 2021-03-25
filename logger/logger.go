@@ -16,6 +16,12 @@ import (
 	"time"
 )
 
+/*
+zap.L().Info("Shutdown Server ...")
+zap.L().Error("controllers.InitTrans with err:", zap.Error(err))
+
+*/
+
 // InitLogger 初始化Logger方式1
 func Init(mode string) (err error) {
 	writeSyncer := getLogWriter(
