@@ -11,6 +11,17 @@ import (
 
 //用户注册登陆逻辑
 //用户注册方法
+
+// GetPostListHandler2 用户注册接口
+// @Summary 用户注册接口
+// @Tags 用户注册相关接口
+// @Accept application/json
+// @Produce application/json
+// @Param Authorization header string false "Bearer 用户令牌"
+// @Param object query models.ParamsUser false "查询参数"
+// @Security ApiKeyAuth
+// @Router /posts2 [get]
+
 func UserRegister(c *gin.Context) {
 	p := models.ParamsUser{}
 	//1.参数校验 validator库

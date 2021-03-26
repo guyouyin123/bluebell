@@ -4,11 +4,14 @@ import (
 	"bluebell/common"
 	"bluebell/controllers"
 	"bluebell/dao/mysql"
+	_ "bluebell/docs"
 	"bluebell/logger"
 	"bluebell/pkg/jwt"
 	"bluebell/pkg/sonwflake"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	gs "github.com/swaggo/gin-swagger"
+	"github.com/swaggo/gin-swagger/swaggerFiles"
 )
 
 func Setup(mode string) *gin.Engine {
@@ -37,6 +40,7 @@ func Setup(mode string) *gin.Engine {
 	{
 		v1.GET("/community", controllers.Community)
 	}
+	r.GET("/swagger/*any", gs.WrapHandler(swaggerFiles.Handler))
 
 	// 其他请求
 	r.NoRoute(func(c *gin.Context) {

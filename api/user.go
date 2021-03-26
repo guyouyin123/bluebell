@@ -9,7 +9,6 @@ import (
 	"errors"
 )
 
-//用户注册的日志
 func Register(p *models.ParamsUser) (err error) {
 	//1.判断用户是否存在
 	exist, err := mysql.ExistUser(p.Username)
