@@ -4,12 +4,12 @@ import (
 	"bluebell/common"
 	"bluebell/controllers"
 	"bluebell/dao/mysql"
-	_ "bluebell/docs"
 	"bluebell/logger"
 	"bluebell/pkg/jwt"
 	"bluebell/pkg/sonwflake"
-	"github.com/gin-gonic/gin"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
 	gs "github.com/swaggo/gin-swagger"
 	"github.com/swaggo/gin-swagger/swaggerFiles"
 )
